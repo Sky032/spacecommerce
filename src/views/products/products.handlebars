@@ -1,0 +1,74 @@
+<main>
+    <section class="container">
+        <form class="search_form" action="/products">
+            <select name="sort" class="form-select form-select-md search_option" aria-label=".form-select-sm example">
+                <option class="search_option" value="1">Lower price first</option>
+                <option class="search_option" value="-1" selected>Higher price first </option>
+            </select>
+            <input class="input-group input-group search_option" type="text" name="query" value="{{query}}" placeholder="Insert word to search"> <br>
+            <button class="btn btn-info search_form_btn" type="submit">Go!</button>
+        </form>
+    </section>
+
+    <section class="page_buttons">
+        {{#if result.hasPrevPage}}
+            <a href="{{result.prevLink}}">Previous</a>
+        {{/if}}
+        <p>{{ result.page }}</p>
+        {{#if result.hasNextPage}}
+            <a href="{{result.nextLink}}">Next</a>
+        {{/if}}
+            <p class="total_results">Total Items: {{result.totalDocs}}</p>
+            <p class="total_results">Total Pages: {{result.totalPages}}</p>
+    </section>
+    
+    {{#if user}}
+        <section class="container">
+                <div id="cart_id" style="display: none;">{{user.cart._id}}</div>
+            {{#each result.docs}}
+                <div class="card m-2" style="width: 18rem;">
+                    <img src={{this.thumbnail}} class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">{{this.title}}</h3>
+                        <p class="card-text"><b>{{this.description}}</b></p>
+                        <p class="card-text">Price: $<i>{{this.price}}</i></p>
+                        <p class="card-text">Stock Available: {{this.stock}}</p>
+                    </div>
+                    <a href="/products/{{this._id}}" class="btn btn-info card_btn">Ver Detalle</a>
+                    <button variant="success" class="btn btn-success card_btn" id="buy_product__btn" value={{this._id}}>Add to Cart</button>
+                </div>
+            {{/each}}
+        </section>
+    {{else}}
+        <section class="container">
+            {{#each result.docs}}
+                <div class="card m-2" style="width: 18rem;">
+                    <img src={{this.thumbnail}} class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">{{this.title}}</h3>
+                        <p class="card-text"><b>{{this.description}}</b></p>
+                        <p class="card-text">Price: $<i>{{this.price}}</i></p>
+                        <p class="card-text">Stock Available: {{this.stock}}</p>
+                    </div>
+                    <a href="/products/{{this._id}}" class="btn btn-info card_btn">Ver Detalle</a>
+                    <a href="/users/login" variant="success" class="btn btn-success card_btn">Login to add to cart.</a>
+                </div>
+            {{/each}}
+        </section>
+    {{/if}}
+
+    <section class="page_buttons">
+        {{#if result.hasPrevPage}}
+            <a href="{{result.prevLink}}">Anterior</a>
+        {{/if}}
+        <p>{{ result.page }}</p>
+        {{#if result.hasNextPage}}
+            <a href="{{result.nextLink}}">Siguiente</a>
+        {{/if}}
+    </section>
+</main>
+
+{{!-- Scripts de JS --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{!-- <script src="/socket.io/socket.io.js"></script> --}}
+<script src="/js/index.js"></script>

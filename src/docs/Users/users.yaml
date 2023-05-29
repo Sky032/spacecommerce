@@ -1,0 +1,109 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtiene todos los usuarios de la base de datos.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Fueron encontrados todos los usuarios satisfactoriamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/users'
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+  /api/users/current:
+    get:
+      summary: Obtiene los datos del usuario logueado.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Datos del usuario logueado en la pagina.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/users'
+        "401":
+          description: Error de usuario. No hay usuario logueado en la página.
+  /api/users/premium/{uid}:
+    get:
+      summary: Cambia el rol del usuario de 'user' a 'premium', y viceversa.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: El rol del usuario fue cambiado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/users'
+        "403":
+          description: No se puede actulizar el rol del usuario.
+  /api/users/{uid}/documents:
+    post:
+      summary: Cargar documentos del usuario
+      tags:
+        - Users
+      responses:
+      "200":
+        description: Los documnetos se han subido exitosamente.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#components/schemas/users'
+      "500":
+        description: Error en el servidor. No se pudieron cargar los datos.
+components:
+  schemas:
+    users:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID generado por MongoDB.
+        First_name:
+          type: String
+          description: Nombre del usuario.
+        last_name:
+          type: String
+          description: Apellido del usuario.
+        password:
+          type: String
+          description: Contraseña de la cuenta.
+        rol:
+          type: String
+          description: Rol del usuario.
+        age:
+          type: Number
+          description: Edad del usuario.
+        social:
+          type: String
+          description: Origen de la cuenta creada por el usuario.
+        cart:
+          type: Array
+          description: Productos agregados para su compra.
+        documents:
+          type: Array
+          description: Documentos subidos por el usuario.
+        last_connection:
+          type: String
+          description: Fecha y hora de última conección.
+      example:
+        _id: 640bdc60ba13069899e54dff
+        first_name: Sky
+        last_name: Walker
+        email: skywalker885@hotmail.com
+        password : $2b$10$WBe8PZBGSwpxvOwtzh/X6.fhzuBSkLKPcSB1fyPC0NixyK03vd9Fu
+        rol: admin
+        age: 35
+        social : local
+        cart: [] 
+        documents: []
+        last_connection: 23/5/2023, 02:28:05
+tags: []

@@ -1,0 +1,14 @@
+<main class="homepage">
+        <section class="container">
+            {{#if user}}
+                <h1 class="title_homepage">Welcome back, <b style="color: #ff0000">{{user.first_name}}</b>!</h1>
+            {{else}}
+                <h1 class="title_homepage">Hi!! Welcome to our store.</h1>
+                <div class="sub_title">
+                    <h3>Already have an account? Please login <a href="/users/login">here.</a></h3>
+                    <h3>Don't have an account? Register <a href="/users/register">here.</a></h3>
+                </div>
+            {{/if}}
+        </section>
+
+</main>

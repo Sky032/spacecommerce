@@ -1,0 +1,26 @@
+<main class="container">
+    {{#if user}}
+        <form class="new_product-form" action="/users/updateInfo" method="POST"> 
+            <p class="sub_title">Update USER information.</p>
+            <input type="text" name="first_name" placeholder="Name: {{user.first_name}}"  disabled/>
+            <input type="text" name="last_name" placeholder="Lastname: {{user.last_name}}"  disabled/>
+            <input type="email" name="email" placeholder="Email: {{user.email}}" />
+            <input type="text" name="rol" placeholder="Your Rol: {{user.rol}}" disabled/>
+            <input type="number" name="age" placeholder="Age: {{user.age}}" />
+            <input type="text" name="owner" placeholder="User ID: {{user._id}}" value="{{user._id}}" disabled/>
+            <button class="btn btn-info" id="send-btn" >Update</button>
+        </form>
+
+        <form class="new_product-form" action="/api/users/{{user._id}}/documents" method="POST" enctype="multipart/form-data"> 
+            <p class="sub_title">Upload USER Documentation.</p>
+            <label for="profile">Profile Pic</label>
+            <input type="file" name="profile" placeholder="Profile Pic" />
+            <label for="products">Product Pic</label>
+            <input type="file" name="products" placeholder="Product Pic" />
+            <label for="documents">Document</label>
+            <input type="file" name="documents" placeholder="Document" />
+            <button class="btn btn-info" >Send</button>
+        </form>
+        
+    {{/if}}
+</main>

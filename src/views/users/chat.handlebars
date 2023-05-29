@@ -1,0 +1,18 @@
+<main>
+    {{#if user}}
+            
+            <div class="chat_body">
+                <p id="username">{{user.first_name}} : </p>
+                <input type="text" id="chatBox">
+            </div>
+            
+            <div class="chat_logs">
+                <p id="messageLogs"></p>
+            </div>
+    {{/if}}
+</main>
+
+{{!-- Scripts de JS --}}
+<script src="/socket.io/socket.io.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../js/chat.js"></script>

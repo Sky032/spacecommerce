@@ -1,0 +1,207 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos de la base de datos.
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Fueron encontrados todos los productos de la base de datos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/products'
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+    post:
+      summary: Crea un nuevo producto en el DB.
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/add'
+      responses:
+        "200":
+          description: El producto fue creado con éxito.
+          content:
+            application/json:
+              schema:
+                  $ref: '#components/schemas/products'
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+  /api/products/{pid}:
+    get:
+      summary: Buscar un produto en la base de datos.
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto a buscar.
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: El producto fue encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/products'
+    post:
+      summary: actualizar el producto solicitado.
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto a actualizar.
+        schema:
+          $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/update'
+      responses:
+        "200":
+          description: El producto ha sido actualizado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/products'
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+    delete:
+      summary: Elimina el producto solicitado
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto a eliminar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: El producto ha sido eliminado.
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+components:
+  schemas:
+    products:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID generado por MongoDB.
+        title:
+          type: String
+          description: titulo del producto
+        description:
+          type: String
+          description: descripcion del producto
+        category:
+          type: String
+          description: Categoria del producto
+        code:
+          type: String
+          description: codigo del producto
+        price:
+          type: Number
+          description: Precio del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        stock:
+          type: Number
+          description: Cantidad disponible del producto
+        thumbnails:
+          type: Array
+          description: Imagen del producto
+        owner:
+          type: ObjectId
+          description: Id del usuario que creo el producto
+      example:
+        _id: 63b8331b7dac26c949c2d4bd
+        title: Leia Organa
+        description: lalalala
+        price: 1000
+        category: Sexy
+        thumbnail: ["https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/Princess_Leia%27s_characteristic_hairstyle.jpg/220px-Princess_Leia%27s_characteristic_hairstyle.jpg"]
+        code: LEIALA
+        state: true
+        stock: 34
+  requestBodies:
+    newProduct:
+      type: object
+      properties:
+        title:
+          type: String
+          description: titulo del producto
+        description:
+          type: String
+          description: descripcion del producto
+        code:
+          type: String
+          description: codigo del producto
+        price:
+          type: Number
+          description: Precio del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        stock:
+          type: Number
+          description: Cantidad en stock
+        category:
+          type: String
+          description: Categoria del producto
+        thumbnails:
+          type: Array
+          description: Fotos del producto
+        owner:
+          type: ObjectId
+          description: Id del usuario que creo el producto
+      example:
+        _id: 63b8331b7dac26c949c2d4bd
+        title: Obie
+        description: Master
+        price: 9999
+        category: Eas
+        thumbnail: ["https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/Princess_Leia%27s_characteristic_hairstyle.jpg/220px-Princess_Leia%27s_characteristic_hairstyle.jpg"]
+        code: Obie
+        state: true
+        stock: 34
+        owner: 6418bef45487eab1b44de2aa
+    updateProduct:
+      type: object
+      properties:
+        title:
+          type: String
+          description: titulo
+        description:
+          type: String
+          description: descripcion
+        price:
+          type: Number
+          description: precio
+        stock:
+          type: Number
+          description: stock
+      example:
+        title: lalala
+        description: lalallala
+        price: 32900
+        stock: 50
+tags: []

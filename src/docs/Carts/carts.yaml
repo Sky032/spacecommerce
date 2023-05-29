@@ -1,0 +1,163 @@
+paths:
+  /api/carts:
+    get:
+      summary: Obtiene todos los carritos
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Se puedieron cargar los datos de todos los carritos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/carts"
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+    post:
+      summary: Crear nuevo carrito de compras.
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Se ha creado un nuevo carrito de compras.
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#components/schemas/carts"
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+  /api/carts/{cid}:
+    get:
+      summary: Obtener un carrito a partir de su ID.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito a buscar.
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: El carrito fue encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/carts"
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+    delete:
+      summary: Elimina todos los productos del carrito solicitado.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito a buscar.
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Los productos fueron eliminados con éxito.
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+  /api/carts/{cid}/products/{pid}:
+    post:
+      summary: Agrega un producto al carrito de compras.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito a buscar.
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto a agregar.
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/addProduct"
+      responses:
+        "200":
+          description: Producto agregado al carrito
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+    delete:
+      summary: Elimina el producto solicitado del carrito.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito.
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto a eliminar.
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Producto eliminado con éxito.
+        "500":
+          description: Error en el servidor. No se pudieron obtener los datos.
+components:
+  schemas:
+    carts:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID generado por MongoDB.
+        products:
+          type: Array
+          description: Contiene los ID de los productos, y la cantidad de cada uno.
+          items:
+            $ref: "#components/schemas/product"
+      example:
+        _id: 63b8331b7dac26c949c2d4bd
+        carts:
+          _id: 640bdc60ba13069899e54dfd
+          quantity: 1
+    product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID generado por MongoDB.
+        quantity:
+          type: Number
+          description: Cantidad del producto en el carrito.
+      example:
+        _id: 63b8331b7dac26c949c2d4bd
+        quantity: 2
+  requestBodies:
+    addProduct:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID generado por MongoDB.
+        quantity:
+          type: Number
+          description: Cantidad del producto en el carrito.
+      example:
+        _id: 63b8331b7dac26c949c2d4bd
+        quantity: 3
+tags: []

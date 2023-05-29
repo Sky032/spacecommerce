@@ -1,0 +1,84 @@
+<main>
+
+    <h1 class="title">Product Detail.</h1>
+
+    {{#if user}}
+        {{#if isAdmin}}
+            <section id="card__container" class="cards">
+                <span id="cart_id" style="display: none;">{{user.cart._id}}</span>
+                {{#each productFound}}
+                        <div class="card mb-3" style="max-width: 860px;">
+                            <div class="row g-0">
+                                <div class="col-md-6">
+                                    <img src="{{this.thumbnail}}" class="img-fluid rounded-start" alt="{{this.description}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{this.title}}</h3>
+                                        <h4 class="card-text">{{this.description}}</h4>
+                                        <p class="card-text">Price: $<i>{{this.price}}</i></p>
+                                        <p class="card-text"><small class="text-muted">Stock Available: {{this.stock}} units.</small></p>
+                                        <p class="card-text"><small class="text-muted">Product Status: {{this.status}}</small></p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success" id="buy_product__btn" value={{this._id}}>Add to Cart</button>
+                                <button class="btn btn-danger" id="delete_product__btn" value={{this._id}}>Delete Product</button>
+                            </div>
+                        </div>
+                {{/each}}        
+            </section>
+        {{else}}
+            <section id="card__container" class="cards">
+                <span id="cart_id" style="display: none;">{{user.cart._id}}</span>
+                {{#each productFound}}
+                        <div class="card mb-3" style="max-width: 860px;">
+                            <div class="row g-0">
+                                <div class="col-md-6">
+                                    <img src="{{this.thumbnail}}" class="img-fluid rounded-start" alt="{{this.description}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{this.title}}</h3>
+                                        <h4 class="card-text">{{this.description}}</h4>
+                                        <p class="card-text">Price: $<i>{{this.price}}</i></p>
+                                        <p class="card-text"><small class="text-muted">Stock Available: {{this.stock}} units.</small></p>
+                                        <p class="card-text"><small class="text-muted">Product Status: {{this.status}}</small></p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success" id="buy_product__btn" value={{this._id}}>Add to Cart</button>
+                            </div>
+                        </div>
+                {{/each}}        
+            </section>
+        {{/if}}
+    {{else}}
+        <section id="card__container" class="cards">
+        {{#each productFound}}
+                <div class="card mb-3" style="max-width: 860px;">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <img src="{{this.thumbnail}}" class="img-fluid rounded-start" alt="{{this.description}}">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h3 class="card-title">{{this.title}}</h3>
+                                <h4 class="card-text">{{this.description}}</h4>
+                                <p class="card-text">Price: $<i>{{this.price}}</i></p>
+                                <p class="card-text"><small class="text-muted">Stock Available: {{this.stock}} units.</small></p>
+                                <p class="card-text"><small class="text-muted">Product Status: {{this.status}}</small></p>
+                            </div>
+                        </div>
+
+                        <p><a href="/users/login">Login</a> to add product.</p>
+                    </div>
+                </div>
+        {{/each}}
+        </section>
+    {{/if}}
+
+</main>
+
+{{!-- Scripts de JS --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{!-- <script src="/socket.io/socket.io.js"></script> --}}
+<script src="/js/productDetail.js"></script>

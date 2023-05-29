@@ -1,0 +1,61 @@
+<section class="account">
+    <h2 class="title">My Account</h2>
+    {{#if user}}
+        {{#if isAdmin}}
+            <section class="container admin_card">
+                <div class="card m-2" style="max-width: 860px;">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" class="img-fluid rounded-start m-5" class="img-fluid rounded-start">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h3 class="card-title mt-5">Welcome, {{user.first_name}} {{user.last_name}} !</h3>
+                                <h5 class="card-title mb-5">It's nice to see an admin arround...</h5>
+                                <h4 class="card-text mb-3">Here's your info. ⬇️</h4>
+                                <p class="card-text mb-2">E-mail: <i>{{user.email}}</i></p>
+                                <p class="card-text mb-2">Name: <i>{{user.first_name}} {{user.last_name}}</i></p>
+                                <p class="card-text mb-2">Your Age: <i class="text-muted">{{user.age}}</i></p>
+                                <p class="card-text mb-2"><small class="text-muted">Your rol: {{user.rol}}.</small></p>
+                                <p class="card-text mb-3"><strong>Your cart ID:</strong> <i class="text-muted">{{user.cart._id}}</i></p>
+                                <p class="card-text mb-3"><strong>Your User ID:</strong> <i class="text-muted">{{user._id}}</i></p>
+                                <p class="card-text mb-2">Last Connection: <i>{{user.last_connection}}</i></p>
+                                <button class="btn btn-outline-info"><a href="/users/updateInfo">Update Info</a></button>
+                                <button class="btn btn-outline-info"><a href="/users/resetPassword">Change Password</a></button>
+                            </div>
+                        </div>
+                        <button class="btn btn-light" id="buy_product__btn" value={{user._id}}><a href="/carts/{{user.cart._id}}">Go to Cart</a></button>
+                    </div>
+                </div>
+            </section>
+
+        {{else}}
+            <section class="container user_card">
+                <div class="card m-5" style="width: 860px;">
+                    <div class="row g-0">
+                        <div class="col-md-6 mb-5">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" class="img-fluid rounded-start m-5">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h3 class="card-title m-5">Hi, {{user.first_name}} {{user.last_name}} !</h3>
+                                <h4 class="card-text mb-3"><u>Here's your info.</u></h4>
+                                <p class="card-text mb-2"><strong>E-mail:</strong> <i>{{user.email}}</i></p>
+                                <p class="card-text mb-2">Name: <i>{{user.first_name}} {{user.last_name}}</i></p>
+                                <p class="card-text mb-2">Your Age: <i class="text-muted">{{user.age}}</i></p>
+                                <p class="card-text mb-2"><small class="text-muted">Your rol: {{user.rol}}.</small></p>
+                                <p class="card-text mb-3"><strong>Your cart ID:</strong> <i class="text-muted">{{user.cart._id}}</i></p>
+                                <p class="card-text mb-3"><strong>Your User ID:</strong> <i class="text-muted">{{user._id}}</i></p>
+                                <p class="card-text mb-2">Last Connection: <i>{{user.last_connection}}</i></p>
+                                <button class="btn btn-outline-info"><a href="/users/updateInfo">Update Info</a></button>
+                                <button class="btn btn-outline-info"><a href="/users/resetPassword">Change Password</a></button>
+                            </div>
+                        </div>
+                        <button class="btn btn-light" id="buy_product__btn" value={{user._id}}><a href="/carts/{{user.cart._id}}">Go to Cart</a></button>
+                    </div>
+                </div>
+            </section>
+        {{/if}}
+    {{/if}}
+
+</section>
